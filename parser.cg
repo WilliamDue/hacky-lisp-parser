@@ -1,0 +1,15 @@
+(
+    Sexp,
+    {atom, (, )},
+    {Sexp, Sexp', Sexp''},
+    {
+        Sexp -> atom,
+        Sexp -> Sexp',
+
+        Sexp' -> ( Sexp'' ),
+        
+        Sexp'' -> atom Sexp'',
+        Sexp'' -> Sexp',
+        Sexp'' -> 
+    }
+)
