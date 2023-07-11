@@ -10,17 +10,13 @@ class Tree:
         1: "Sexp1",
         2: "Sexp2",
         3: "Sexp3",
-        4: "Sexp4",
-        5: "Sexp5"
     }
 
     arities = {
         "Sexp0": [1],
-        "Sexp1": [0, 0],
-        "Sexp2": [1, 1],
-        "Sexp3": [1, 0],
-        "Sexp4": [0, 0],
-        "Sexp5": [0]
+        "Sexp1": [1, 1],
+        "Sexp2": [0, 0, 0],
+        "Sexp3": [0],
     }
 
     productions = {
@@ -28,8 +24,6 @@ class Tree:
         "Sexp1",
         "Sexp2",
         "Sexp3",
-        "Sexp4",
-        "Sexp5"
     }
 
     @classmethod
@@ -144,14 +138,20 @@ def terminals_to_indices(terminals):
 
 
 def main():
-    code = input('Code: ')
-    tokens, terminals = lexer(code)
-    indices = np.array(terminals_to_indices(terminals))
     parser = Futhark(_parser)
-    left_parse = list(parser.from_futhark(parser.parse(indices)))
-    print(left_parse)
-    tree = Tree.make_tree(left_parse, tokens)
-    print(tree)
+
+    while True:
+        code = input('Code: ')
+        
+        if code == ':exit':
+            break
+
+        tokens, terminals = lexer(code)
+        indices = np.array(terminals_to_indices(terminals))
+        left_parse = list(parser.from_futhark(parser.parse(indices)))
+        print(left_parse)
+        tree = Tree.make_tree(left_parse, tokens)
+        print(tree)
     
 
 
